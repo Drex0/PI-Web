@@ -1,0 +1,45 @@
+const express = require('express');
+const app = express();
+const path = require('path');
+const fs = require('fs'); 
+const favicon = require('serve-favicon');
+
+const rasbperrypiroutes = require('./api/routes/raspberrypi');
+
+// Directory path
+var directoryPath = "//sldat30/itshare/pishare/slideshow/inventory";
+var piNames = [];
+
+// Load view engine
+app.set('views', path.join(__dirname,'views'));
+app.set('view engine', 'pug');
+
+// Set public folder and favicon
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/public/img/favicon.ico'));
+
+
+//Home route and pass names of pis on network to rendered layout
+app.get('/', function(req, res){  
+    res.render('index', {
+        title:'Deployed Pi\'s',
+        allPis: piNames
+    });    
+});
+
+// Setup pis route
+app.use('/pis', rasbperrypiroutes);
+
+//get file names from directoryPath and callback function 
+fs.readdir(directoryPath, function (err, files) { 
+    //handling error 
+    if (err) { 
+        return console.log('Unable to scan directory: ' + err); 
+    }  
+    //listing all files using forEach 
+    files.forEach(function (file) { 
+        piNames.push(file);  
+    }); 
+}); 
+
+module.exports = app;

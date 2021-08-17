@@ -1,0 +1,19 @@
+mixin pimix(name)
+            li.piitem.list-group-item.d-flex.justify-content-between.align-items.center
+                
+
+                div.col-sm-3
+                    h3.pimix= fileName                    
+                    div.row 
+                        h6 192.168.0.1
+                        span.glyphicon.glyphicon-ok-sign
+                form.form-group(action='/update', method='GET')
+                    input(type='hidden', name=fileName)
+                    button.btn.btn-primary(type='submit', name='action', value='update') Update Slides
+                form.form-group(action='/reboot', method='POST')
+                    input(type='hidden', name=fileName)
+                    button.btn.btn-danger(type='submit', name='action', value='reboot') Reboot
+                form.form-group.form-inline(action='/change', method='POST')
+                    input(type='hidden', name=fileName)
+                    button.btn.btn-secondary(type='submit', name='action', value='change') Change Name
+                    input.form-control(type='text', placeholder='new name', required)

@@ -1,0 +1,16 @@
+extends layout
+
+block content    
+    head 
+        script(src='js/loginscripts.js') 
+
+    .container.col-sm-6.col-lg-4
+        .card.text-white.bg-primary.border-secondary.mb-3
+            .card-body
+                form.form-signin(method="POST", action="/login")               
+                    .card-text.form-label-group            
+                        input(type="text", id="inputUser", class="form-control", placeholder="username", name="username" required autofocus)
+                        hr                                       
+                        input(type="password", id="inputPassword", class="form-control", placeholder="password", name="password" required)
+                        hr
+                    button(type="submit", class="btn btn-lg btn-secondary btn-block text-uppercase") Sign In                                    
